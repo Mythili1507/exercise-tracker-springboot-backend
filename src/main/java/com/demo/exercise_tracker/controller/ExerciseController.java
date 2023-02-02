@@ -25,8 +25,23 @@ public class ExerciseController
 	@Autowired
 	private ExerciseService exerciseService;
 	
+//	@GetMapping("/testObj")
+//	public ExerciseEntry testObj()
+//	{
+//		ExerciseEntry testObj = new ExerciseEntry();
+//		
+//		testObj.id = 99;
+//		testObj.exerciseName = "Pushups";
+//		testObj.userId = 1;
+//		testObj.startTime = LocalDateTime.now().minusMinutes(10);
+//		testObj.endTime = LocalDateTime.now();
+//		testObj.durationMillis = Duration.between(testObj.startTime, testObj.endTime).toMillis();
+//		
+//		return testObj;
+//	}
+	
 	@PostMapping("/create")
-	public ResponseEntity<String> create(ExerciseEntry exeEntry)
+	public ResponseEntity<String> create(@RequestBody ExerciseEntry exeEntry)
 	{
 		String body = null;
 		HttpStatus status = null;
@@ -54,11 +69,13 @@ public class ExerciseController
 		
 		return new ResponseEntity<>(exeEntry, HttpStatus.OK);
 	}
+	
 	@GetMapping("/getAll")
 	public Collection<ExerciseEntry> getAll()
 	{
 		return exerciseService.getAll();
 	}
+	
 	@PatchMapping("/update")
 	public ResponseEntity<String> update(@RequestBody ExerciseEntry exeEntry)
 	{	
@@ -69,7 +86,7 @@ public class ExerciseController
 		try
 		{
 			boolean isUpdateSuccessful = exerciseService.update(exeEntry);
-			body = (isUpdateSuccessful) ? "Sucess" : "Failure";
+			body = (isUpdateSuccessful) ? "Success" : "Failure";
 			status = (isUpdateSuccessful) ? HttpStatus.OK : HttpStatus.NOT_FOUND;	
 		}
 		catch(Exception e)
@@ -82,8 +99,9 @@ public class ExerciseController
 		response = new ResponseEntity<>(body, status);
 		return response;
 	}
+	
 	@DeleteMapping("/delete")
-	public ResponseEntity<ExerciseEntry> delete(int id)
+	public ResponseEntity<ExerciseEntry> delete(@RequestParam int id)
 	{
 		ResponseEntity<ExerciseEntry> response = null;
 		ExerciseEntry body = null;
@@ -100,7 +118,7 @@ public class ExerciseController
 			body = null;
 			status = HttpStatus.BAD_REQUEST;
 		}
-
+		
 		response = new ResponseEntity<>(body, status);
 		return response;
 	}

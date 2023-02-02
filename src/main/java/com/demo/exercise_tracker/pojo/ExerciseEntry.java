@@ -1,6 +1,5 @@
 package com.demo.exercise_tracker.pojo;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -19,5 +18,5 @@ public class ExerciseEntry
 	public int userId;
 	public LocalDateTime startTime;
 	public LocalDateTime endTime;
-	public Duration duration;
+	public long durationMillis;
 }

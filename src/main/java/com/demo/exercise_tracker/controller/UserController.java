@@ -87,7 +87,7 @@ public class UserController
 		return response;
 	}
 	
-	@DeleteMapping
+	@DeleteMapping("/delete")
 	public ResponseEntity<User> delete(@RequestParam int id)
 	{
 		ResponseEntity<User> response = null;
